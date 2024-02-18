@@ -24,12 +24,16 @@ class Trading:
         macd_indicator = 'BUY' if macd_status > self.buying_macd_value else 'SELL'
         if macd_indicator == self.status:
             return
+        print('Trading...')
+        print(f'{macd_status=}')
+        print(f'{macd_indicator=}')
         ticket_price = self.get_ticket_price()
         if macd_indicator == 'BUY':
             self.buy(ticket_price)
         elif macd_indicator == 'SELL':
             self.sell(ticket_price)
         self.send_stat()
+        print('-' * 50)
 
     def sell(self, current_price):
         self.balance_usd = self.balance_crypto * current_price
