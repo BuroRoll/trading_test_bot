@@ -12,6 +12,7 @@ class Trading:
         self.status = 'SELL'
         self.ticket_pair = settings.TICKET
         self.telegram_bot = TelegramBot()
+        self.buying_macd_value = settings.BUYING_MACD_VALUE
 
     def get_ticket_price(self):
         ticket = yf.Ticker(self.ticket_pair)
@@ -20,7 +21,7 @@ class Trading:
 
     def trade(self):
         macd_status = calc_macd_value(self.ticket_pair)
-        macd_indicator = 'BUY' if macd_status > 0 else 'SELL'
+        macd_indicator = 'BUY' if macd_status > self.buying_macd_value else 'SELL'
         if macd_indicator == self.status:
             return
         ticket_price = self.get_ticket_price()
@@ -47,15 +48,3 @@ class Trading:
                 f'{self.balance_usd=}\n'
                 f'{self.balance_crypto=}')
         self.telegram_bot.send_message(stat)
-
-    def print_stat(self):
-        print(f'Current stat:\n'
-              f'{self.ticket_pair=}\n'
-              f'{self.balance_usd=}\n'
-              f'{self.balance_crypto=}')
-
-    def get_stat_string(self):
-        return (f'Current stat:\n'
-                f'{self.ticket_pair=}\n'
-                f'{self.balance_usd=}\n'
-                f'{self.balance_crypto=}')

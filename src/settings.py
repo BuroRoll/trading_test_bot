@@ -7,7 +7,8 @@ class Settings(BaseSettings):
     TELEGRAM_API_TOKEN: str = ''
     TELEGRAM_CHAT_ID: str = ''
     TICKET: str = 'ETH-USD'
-    START_BALANCE_USD: float = 10_000
+    START_BALANCE_USD: float = 100
+    BUYING_MACD_VALUE: int = 3
 
 
 settings = Settings()
