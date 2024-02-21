@@ -21,7 +21,12 @@ class Trading:
 
     def trade(self):
         macd_status = calc_macd_value(self.ticket_pair)
-        macd_indicator = 'BUY' if macd_status > self.buying_macd_value else 'SELL'
+        if macd_status > self.buying_macd_value:
+            macd_indicator = 'BUY'
+        elif macd_status < 0:
+            macd_indicator = 'SELL'
+        else:
+            return
         if macd_indicator == self.status:
             return
         print('Trading...')
